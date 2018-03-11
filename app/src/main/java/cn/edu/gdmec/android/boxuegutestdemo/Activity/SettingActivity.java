@@ -50,7 +50,8 @@ public class SettingActivity extends AppCompatActivity{
         rl_modify_psw.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent=new Intent(SettingActivity.this,ModifyPswActivity.class);
+                startActivity(intent);
             }
         });
         rl_security_setting.setOnClickListener(new View.OnClickListener() {
