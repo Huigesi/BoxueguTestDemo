@@ -10,7 +10,6 @@ import android.widget.TextView;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import cn.edu.gdmec.android.boxuegutestdemo.MainActivity;
 import cn.edu.gdmec.android.boxuegutestdemo.R;
 
 public class SplashActivity extends Activity  {
