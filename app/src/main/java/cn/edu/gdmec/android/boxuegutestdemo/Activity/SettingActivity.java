@@ -57,7 +57,9 @@ public class SettingActivity extends AppCompatActivity{
         rl_security_setting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent=new Intent(SettingActivity.this,FindPswActivity.class);
+                intent.putExtra("from","security");
+                startActivity(intent);
             }
         });
         rl_exit_login.setOnClickListener(new View.OnClickListener() {
