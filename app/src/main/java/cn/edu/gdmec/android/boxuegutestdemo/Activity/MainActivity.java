@@ -1,6 +1,7 @@
 package cn.edu.gdmec.android.boxuegutestdemo.Activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -16,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import cn.edu.gdmec.android.boxuegutestdemo.R;
+import cn.edu.gdmec.android.boxuegutestdemo.View.MyInfoView;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -137,6 +139,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setSelectStatus(0);
         createView(0);
     }
+    private MyInfoView myInfoView;
 
     private void createView(int index) {
         switch (index){
@@ -146,6 +149,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case 1:
                 break;
             case 2:
+                if (myInfoView==null){
+                    myInfoView=new MyInfoView(this);
+                    main_body.addView(myInfoView.getView());
+                }else {
+                    myInfoView.getView();
+                }
+                myInfoView.showView();
                 break;
         }
 
@@ -190,5 +200,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         createView(i);
         setSelectStatus(i);
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (data!=null){
+            boolean isLogin=data.getBooleanExtra("isLogin",false);
+            if (isLogin){
+                clearLoginStatus();
+                selectDisplayView(0);
+
+            }
+            if (myInfoView!=null){
+                myInfoView.setLoginParams(isLogin);
+            }
+        }
     }
 }
