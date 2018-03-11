@@ -208,7 +208,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (data!=null){
             boolean isLogin=data.getBooleanExtra("isLogin",false);
             if (isLogin){
-                clearLoginStatus();
+                clearBottomImageState();
                 selectDisplayView(0);
 
             }
