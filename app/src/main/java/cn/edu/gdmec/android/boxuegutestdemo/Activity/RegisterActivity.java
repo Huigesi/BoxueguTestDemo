@@ -115,7 +115,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             case R.id.btn_register:
                 //TODO implement
                 submit();
-
                 break;
         }
     }
