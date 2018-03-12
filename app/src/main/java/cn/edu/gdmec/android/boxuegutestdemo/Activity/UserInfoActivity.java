@@ -3,8 +3,10 @@ package cn.edu.gdmec.android.boxuegutestdemo.Activity;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -32,6 +34,9 @@ public class UserInfoActivity extends Activity implements View.OnClickListener{
     private RelativeLayout rl_sex;
     private RelativeLayout rl_signature;
     private String spUserName;
+    private static final int CHANGE_NICKNAME=1;
+    private static final int CHANGE_SIGNATURE=2;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,6 +101,12 @@ public class UserInfoActivity extends Activity implements View.OnClickListener{
                 break;
             case R.id.rl_nickName:
                 //昵称
+                String name=tv_nickName.getText().toString();
+                Bundle bdName=new Bundle();
+                bdName.putString("content",name);
+                bdName.putString("title","昵称");
+                bdName.putInt("flag", 1);
+                enterActivityForResult(ChangeUserInfoActivity.class,CHANGE_NICKNAME,bdName);
                 break;
             case R.id.rl_sex:
                 String sex=tv_sex.getText().toString();
@@ -104,6 +115,12 @@ public class UserInfoActivity extends Activity implements View.OnClickListener{
                 break;
             case R.id.rl_signature:
                 //signature
+                String signature=tv_signature.getText().toString();
+                Bundle bdSignature=new Bundle();
+                bdSignature.putString("content",signature);
+                bdSignature.putString("title","签名");
+                bdSignature.putInt("flag", 2);
+                enterActivityForResult(ChangeUserInfoActivity.class,CHANGE_SIGNATURE,bdSignature);
                 break;
         }
     }
@@ -133,5 +150,39 @@ public class UserInfoActivity extends Activity implements View.OnClickListener{
     private void setSex(String s) {
         tv_sex.setText(s);
         DBUtils.getInstance(UserInfoActivity.this).updateUserInfo("sex",s,spUserName);
+    }
+
+    public void enterActivityForResult(Class<?> to,int requestcode,Bundle b){
+        Intent i=new Intent(this,to);
+        i.putExtras(b);
+        startActivityForResult(i,requestcode);
+    }
+    private String new_info;
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode){
+            case CHANGE_NICKNAME:
+                if (data!=null){
+                    new_info=data.getStringExtra("nickName");
+                    if (TextUtils.isEmpty(new_info)){
+                        return;
+                    }
+                    tv_nickName.setText(new_info);
+                    DBUtils.getInstance(UserInfoActivity.this).updateUserInfo("nickName",new_info,spUserName);
+                }
+                break;
+            case CHANGE_SIGNATURE:
+                if (data!=null){
+                    new_info=data.getStringExtra("signature");
+                    if (TextUtils.isEmpty(new_info)){
+                        return;
+                    }
+                    tv_signature.setText(new_info);
+                    DBUtils.getInstance(UserInfoActivity.this).updateUserInfo("signature",new_info,spUserName);
+                }
+                break;
+        }
     }
 }
