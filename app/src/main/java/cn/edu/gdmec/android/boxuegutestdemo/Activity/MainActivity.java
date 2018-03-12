@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import cn.edu.gdmec.android.boxuegutestdemo.R;
+import cn.edu.gdmec.android.boxuegutestdemo.View.ExercisesView;
 import cn.edu.gdmec.android.boxuegutestdemo.View.MyInfoView;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
@@ -140,6 +141,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         createView(0);
     }
     private MyInfoView myInfoView;
+    private ExercisesView exercisesView;
 
     private void createView(int index) {
         switch (index){
@@ -147,6 +149,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 break;
             case 1:
+                if (exercisesView==null){
+                    exercisesView=new ExercisesView(this);
+                    main_body.addView(exercisesView.getView());
+                }else {
+                    exercisesView.getView();
+                }
+                exercisesView.showView();
                 break;
             case 2:
                 if (myInfoView==null){
