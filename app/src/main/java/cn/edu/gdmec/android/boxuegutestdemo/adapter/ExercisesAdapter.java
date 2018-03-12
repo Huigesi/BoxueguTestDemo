@@ -4,12 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import cn.edu.gdmec.android.boxuegutestdemo.Activity.ExercisesDetailActivity;
 import cn.edu.gdmec.android.boxuegutestdemo.Bean.ExercisesBean;
 import cn.edu.gdmec.android.boxuegutestdemo.R;
 
@@ -56,7 +58,7 @@ public class ExercisesAdapter extends BaseAdapter {
 
     private void initializeViews(ExercisesBean object, ViewHolder holder,int position,View convertView) {
         //TODO implement
-            ExercisesBean bean=getItem(position);
+            final ExercisesBean bean=getItem(position);
         if (bean!=null){
             holder.tvOrder.setText(position+1+"");
             holder.tvContent.setText(bean.content);
@@ -65,6 +67,13 @@ public class ExercisesAdapter extends BaseAdapter {
             convertView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    if (bean==null){
+                        return;
+                    }
+                    Intent intent=new Intent(context, ExercisesDetailActivity.class);
+                    intent.putExtra("id",bean.id);
+                    intent.putExtra("title",bean.title);
+                    context.startActivity(intent);
 
                 }
             });

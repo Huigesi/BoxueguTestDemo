@@ -30,6 +30,7 @@
         <activity android:name=".Activity.FindPswActivity"/>
         <activity android:name=".Activity.UserInfoActivity"/>
         <activity android:name=".Activity.ChangeUserInfoActivity"/>
+        <activity android:name=".Activity.ExercisesDetailActivity"/>
     </application>
 
 </manifest>
