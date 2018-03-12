@@ -4,10 +4,9 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 
 import cn.edu.gdmec.android.boxuegutestdemo.Bean.UserBean;
-import cn.edu.gdmec.android.boxuegutestdemo.sqlite.SQLiteHelper;
+import cn.edu.gdmec.android.boxuegutestdemo.Sqlite.SQLiteHelper;
 
 /**
  * Created by Administrator on 2018/3/12.
