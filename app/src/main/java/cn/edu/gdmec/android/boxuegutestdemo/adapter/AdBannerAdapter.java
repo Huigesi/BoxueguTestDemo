@@ -55,6 +55,7 @@ public class AdBannerAdapter extends FragmentStatePagerAdapter implements View.O
     public int getItemPosition(Object object) {
         return POSITION_NONE;
 
+        
     }
 
     @Override
