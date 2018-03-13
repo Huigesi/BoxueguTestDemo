@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import cn.edu.gdmec.android.boxuegutestdemo.R;
+import cn.edu.gdmec.android.boxuegutestdemo.View.CourseView;
 import cn.edu.gdmec.android.boxuegutestdemo.View.ExercisesView;
 import cn.edu.gdmec.android.boxuegutestdemo.View.MyInfoView;
 
@@ -142,11 +143,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
     private MyInfoView myInfoView;
     private ExercisesView exercisesView;
+    private CourseView mCourseView;
 
     private void createView(int index) {
         switch (index){
             case 0:
-
+                if (mCourseView==null){
+                    mCourseView=new CourseView(this);
+                    main_body.addView(mCourseView.getView());
+                }else {
+                    mCourseView.getView();
+                }
+                mCourseView.showView();
                 break;
             case 1:
                 if (exercisesView==null){
@@ -208,7 +216,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         removeAllView();
         createView(i);
         setSelectStatus(i);
-
     }
 
     @Override
@@ -219,7 +226,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             if (isLogin){
                 clearBottomImageState();
                 selectDisplayView(0);
-
             }
             if (myInfoView!=null){
                 myInfoView.setLoginParams(isLogin);

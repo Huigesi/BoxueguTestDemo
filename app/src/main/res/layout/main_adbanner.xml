@@ -6,8 +6,8 @@
     android:id="@+id/rl_adBanner"
     >
     <android.support.v4.view.ViewPager
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:id="@+id/vp_advertBanner"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"

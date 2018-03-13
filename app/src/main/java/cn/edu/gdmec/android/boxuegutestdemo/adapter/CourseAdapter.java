@@ -1,6 +1,7 @@
 package cn.edu.gdmec.android.boxuegutestdemo.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -68,6 +69,7 @@ public class CourseAdapter extends BaseAdapter{
                     case 0:
                         vh.tv_left_img_title.setText(bean.imgTitle);
                         vh.tv_left_title.setText(bean.title);
+                        Log.i("bean.tiTle",bean.title+""+bean.imgTitle);
                         setLeftImg(bean.id,vh.iv_left_img);
                         vh.iv_left_img.setOnClickListener(new View.OnClickListener() {
                             @Override
@@ -78,7 +80,7 @@ public class CourseAdapter extends BaseAdapter{
                         break;
                     case 1:
                         vh.tv_right_img_title.setText(bean.imgTitle);
-                        vh.tv_left_title.setText(bean.title);
+                        vh.tv_right_title.setText(bean.title);
                         setRightImg(bean.id,vh.iv_right_img);
                         vh.iv_right_img.setOnClickListener(new View.OnClickListener() {
                             @Override
