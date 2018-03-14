@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import cn.edu.gdmec.android.boxuegutestdemo.Bean.UserBean;
+import cn.edu.gdmec.android.boxuegutestdemo.Bean.VideoBean;
 import cn.edu.gdmec.android.boxuegutestdemo.Sqlite.SQLiteHelper;
 
 /**
@@ -56,4 +57,20 @@ public class DBUtils {
         db.update(SQLiteHelper.U_USERINFO,contentValues,"userName=?",new String[]{userName});
     }
 
+    public void saveVideoPlayList(VideoBean videoBean, String userName) {
+        if (hasVideoPlay(videoBean.chapterId,videoBean.videoId,userName)){
+            boolean isDelete=delVideoPlay(videoBean.chapterId,videoBean.videoId,userName);
+            if (!isDelete){
+                return;
+            }
+        }
+    }
+
+    private boolean delVideoPlay(int chapterId, int videoId, String userName) {
+        return false;
+    }
+
+    private boolean hasVideoPlay(int chapterId, int videoId, String userName) {
+        return false;
+    }
 }
