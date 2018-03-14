@@ -64,13 +64,36 @@ public class DBUtils {
                 return;
             }
         }
+        ContentValues cv=new ContentValues();
+        cv.put("userName", userName);
+        cv.put("chapterId", videoBean.chapterId);
+        cv.put("videoId", videoBean.videoId);
+        cv.put("videoPath", videoBean.videoPath);
+        cv.put("title", videoBean.title);
+        cv.put("secondTitle", videoBean.secondTitle);
+        db.insert(SQLiteHelper.U_VIDEO_PLAY_LIST, null, cv);
+
     }
 
     private boolean delVideoPlay(int chapterId, int videoId, String userName) {
-        return false;
+        boolean delSuccess=false;
+        int row = db.delete(SQLiteHelper.U_VIDEO_PLAY_LIST, " chapterId=? AND videoId=? AND userName=?",
+                new String[]{chapterId + "", videoId + "", userName});
+        if (row > 0) {
+            delSuccess=true;
+        }
+        return delSuccess;
     }
 
     private boolean hasVideoPlay(int chapterId, int videoId, String userName) {
-        return false;
+        boolean hasVideo=false;
+        String sql="SELECT * FROM "+ SQLiteHelper.U_VIDEO_PLAY_LIST+
+                " WHERE chapterId=? AND videoId=? AND userName=?";
+        Cursor cursor = db.rawQuery(sql, new String[]{chapterId + "", videoId + "", userName});
+        if (cursor.moveToNext()) {
+            hasVideo=true;
+        }
+        cursor.close();
+        return hasVideo;
     }
 }

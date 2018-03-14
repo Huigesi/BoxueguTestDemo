@@ -1,6 +1,7 @@
 package cn.edu.gdmec.android.boxuegutestdemo.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import cn.edu.gdmec.android.boxuegutestdemo.Activity.VideoListActivity;
 import cn.edu.gdmec.android.boxuegutestdemo.Bean.CourseBean;
 import cn.edu.gdmec.android.boxuegutestdemo.R;
 
@@ -75,6 +77,10 @@ public class CourseAdapter extends BaseAdapter{
                             @Override
                             public void onClick(View view) {
                                 //课程详情
+                                Intent intent = new Intent(mContext, VideoListActivity.class);
+                                intent.putExtra("id", bean.id);
+                                intent.putExtra("intro", bean.intro);
+                                mContext.startActivity(intent);
                             }
                         });
                         break;
@@ -86,6 +92,10 @@ public class CourseAdapter extends BaseAdapter{
                             @Override
                             public void onClick(View view) {
                                 //课程详情
+                                Intent intent = new Intent(mContext, VideoListActivity.class);
+                                intent.putExtra("id", bean.id);
+                                intent.putExtra("intro", bean.intro);
+                                mContext.startActivity(intent);
                             }
                         });
                         break;

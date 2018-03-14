@@ -19,7 +19,7 @@
         android:id="@+id/tv_video_title"
         android:layout_marginLeft="10dp"
         android:gravity="center_vertical"
-        android:text=""
+        android:text="[第一节]Android简介"
         android:textColor="#333333"
         android:textSize="14sp"/>
 
