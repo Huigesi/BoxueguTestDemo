@@ -2,6 +2,7 @@ package cn.edu.gdmec.android.boxuegutestdemo.Activity;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -29,6 +30,7 @@ import cn.edu.gdmec.android.boxuegutestdemo.Bean.VideoBean;
 import cn.edu.gdmec.android.boxuegutestdemo.R;
 import cn.edu.gdmec.android.boxuegutestdemo.Utils.AnalysisUtils;
 import cn.edu.gdmec.android.boxuegutestdemo.Utils.DBUtils;
+import cn.edu.gdmec.android.boxuegutestdemo.VideoPlayActivity;
 import cn.edu.gdmec.android.boxuegutestdemo.adapter.VideoListAdapter;
 
 public class VideoListActivity extends AppCompatActivity implements View.OnClickListener {
@@ -135,6 +137,10 @@ public class VideoListActivity extends AppCompatActivity implements View.OnClick
                         db.saveVideoPlayList(videoList.get(position), userName);
                     }
                     //视频播放
+                    Intent intent=new Intent(VideoListActivity.this, VideoPlayActivity.class);
+                    intent.putExtra("videoPath", videoPath);
+                    intent.putExtra("position", position);
+                    startActivityForResult(intent,1);
                 }
             }
         });
@@ -174,6 +180,21 @@ public class VideoListActivity extends AppCompatActivity implements View.OnClick
                     tv_intro.setTextColor(Color.parseColor("#000000"));
                     tv_video.setTextColor(Color.parseColor("#FFFFFF"));
                     break;
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (data != null) {
+            int position = data.getIntExtra("position", 0);
+            adapter.setSelectedPosition(position);
+            lv_video_list.setVisibility(View.VISIBLE);
+            sv_chapter_intro.setVisibility(View.GONE);
+            tv_intro.setBackgroundColor(Color.parseColor("#FFFFFF"));
+            tv_video.setBackgroundColor(Color.parseColor("#30B4FF"));
+            tv_intro.setTextColor(Color.parseColor("#000000"));
+            tv_video.setTextColor(Color.parseColor("#FFFFFF"));
         }
     }
 }
