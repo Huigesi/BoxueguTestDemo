@@ -62,7 +62,7 @@ public class CourseView {
         try {
             InputStream is = mContext.getResources().getAssets().open("chaptertitle.xml");
             cbl= AnalysisUtils.getCourseInfos(is);
-            Log.i("cbl",cadl.size()+"");
+            Log.i("cbl",cbl.size()+"");
         } catch (IOException e) {
             e.printStackTrace();
         } catch (Exception e) {

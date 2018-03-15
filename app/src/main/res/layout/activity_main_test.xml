@@ -11,11 +11,11 @@
         android:background="@android:color/white"
         >
         <include layout="@layout/main_title_bar"></include>
-        <FrameLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@android:color/white"
-            android:id="@+id/main_body"></FrameLayout>
+            android:id="@+id/main_body_test"></RelativeLayout>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"

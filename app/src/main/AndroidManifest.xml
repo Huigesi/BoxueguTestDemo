@@ -32,6 +32,9 @@
         <activity android:name=".Activity.ChangeUserInfoActivity"/>
         <activity android:name=".Activity.ExercisesDetailActivity"/>
         <activity android:name=".Activity.VideoListActivity"/>
+        <activity android:name=".Test.ActivityMainActivity">
+
+        </activity>
     </application>
 
 </manifest>
