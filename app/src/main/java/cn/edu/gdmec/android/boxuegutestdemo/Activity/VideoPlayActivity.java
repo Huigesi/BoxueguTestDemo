@@ -1,4 +1,4 @@
-package cn.edu.gdmec.android.boxuegutestdemo;
+package cn.edu.gdmec.android.boxuegutestdemo.Activity;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -10,6 +10,8 @@ import android.view.KeyEvent;
 import android.widget.MediaController;
 import android.widget.Toast;
 import android.widget.VideoView;
+
+import cn.edu.gdmec.android.boxuegutestdemo.R;
 
 public class VideoPlayActivity extends AppCompatActivity {
 

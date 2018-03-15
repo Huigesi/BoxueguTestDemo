@@ -1,4 +1,4 @@
-package cn.edu.gdmec.android.boxuegutestdemo;
+package cn.edu.gdmec.android.boxuegutestdemo.adapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +12,9 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import cn.edu.gdmec.android.boxuegutestdemo.Activity.VideoPlayActivity;
 import cn.edu.gdmec.android.boxuegutestdemo.Bean.VideoBean;
+import cn.edu.gdmec.android.boxuegutestdemo.R;
 
 public class PlayHistoryAdapter extends BaseAdapter {
 

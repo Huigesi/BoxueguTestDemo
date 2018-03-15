@@ -1,4 +1,4 @@
-package cn.edu.gdmec.android.boxuegutestdemo;
+package cn.edu.gdmec.android.boxuegutestdemo.Activity;
 
 import android.app.Activity;
 import android.graphics.Color;
@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cn.edu.gdmec.android.boxuegutestdemo.Bean.VideoBean;
+import cn.edu.gdmec.android.boxuegutestdemo.adapter.PlayHistoryAdapter;
+import cn.edu.gdmec.android.boxuegutestdemo.R;
 import cn.edu.gdmec.android.boxuegutestdemo.Utils.AnalysisUtils;
 import cn.edu.gdmec.android.boxuegutestdemo.Utils.DBUtils;
 

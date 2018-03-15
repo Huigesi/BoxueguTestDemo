@@ -1,6 +1,5 @@
 package cn.edu.gdmec.android.boxuegutestdemo.Activity;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -30,7 +29,6 @@ import cn.edu.gdmec.android.boxuegutestdemo.Bean.VideoBean;
 import cn.edu.gdmec.android.boxuegutestdemo.R;
 import cn.edu.gdmec.android.boxuegutestdemo.Utils.AnalysisUtils;
 import cn.edu.gdmec.android.boxuegutestdemo.Utils.DBUtils;
-import cn.edu.gdmec.android.boxuegutestdemo.VideoPlayActivity;
 import cn.edu.gdmec.android.boxuegutestdemo.adapter.VideoListAdapter;
 
 public class VideoListActivity extends AppCompatActivity implements View.OnClickListener {

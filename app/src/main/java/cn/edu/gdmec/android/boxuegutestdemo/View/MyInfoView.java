@@ -15,7 +15,7 @@ import android.widget.Toast;
 import cn.edu.gdmec.android.boxuegutestdemo.Activity.LoginActivity;
 import cn.edu.gdmec.android.boxuegutestdemo.Activity.SettingActivity;
 import cn.edu.gdmec.android.boxuegutestdemo.Activity.UserInfoActivity;
-import cn.edu.gdmec.android.boxuegutestdemo.PlayHistoryActivity;
+import cn.edu.gdmec.android.boxuegutestdemo.Activity.PlayHistoryActivity;
 import cn.edu.gdmec.android.boxuegutestdemo.R;
 import cn.edu.gdmec.android.boxuegutestdemo.Utils.AnalysisUtils;
 
