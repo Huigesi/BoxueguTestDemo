@@ -15,6 +15,7 @@ import android.widget.Toast;
 import cn.edu.gdmec.android.boxuegutestdemo.Activity.LoginActivity;
 import cn.edu.gdmec.android.boxuegutestdemo.Activity.SettingActivity;
 import cn.edu.gdmec.android.boxuegutestdemo.Activity.UserInfoActivity;
+import cn.edu.gdmec.android.boxuegutestdemo.PlayHistoryActivity;
 import cn.edu.gdmec.android.boxuegutestdemo.R;
 import cn.edu.gdmec.android.boxuegutestdemo.Utils.AnalysisUtils;
 
@@ -69,7 +70,8 @@ public class MyInfoView {
             @Override
             public void onClick(View v) {
                 if (readLoginStatus()){
-
+                    Intent intent = new Intent(mContext, PlayHistoryActivity.class);
+                    mContext.startActivity(intent);
                 }else {
                     Toast.makeText(mContext,"您未登录，请先登录",Toast.LENGTH_SHORT).show();
                 }
