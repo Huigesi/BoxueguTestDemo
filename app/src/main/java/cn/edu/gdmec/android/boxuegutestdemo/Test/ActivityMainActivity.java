@@ -50,53 +50,52 @@ public class ActivityMainActivity extends FragmentActivity implements View.OnCli
     private void setSelectStatus(int index){
         switch (index){
             case 0:
-                //mCourseBtn.setSelected(true);
                 bottom_bar_image_course.setImageResource(R.drawable.main_course_icon_selected);
                 bottom_bar_text_course.setTextColor(Color.parseColor("#0097F7"));
-                title_bar.setVisibility(View.GONE);
-                tv_main_title.setText("博学谷课程");
+                //title_bar.setVisibility(View.GONE);
+                //tv_main_title.setText("博学谷课程");
 
                 bottom_bar_text_exercises.setTextColor(Color.parseColor("#666666"));
                 bottom_bar_text_myinfo.setTextColor(Color.parseColor("#666666"));
                 bottom_bar_image_exercises.setImageResource(R.drawable.main_exercises_icon);
                 bottom_bar_image_myinfo.setImageResource(R.drawable.main_my_icon);
+                //getSupportFragmentManager().beginTransaction().replace(R.id.main_body_test,new MainViewCourseFragment()).commit();
                 break;
             case 1:
-                //mExercisesBtn.setSelected(true);
                 bottom_bar_image_exercises.setImageResource(R.drawable.main_exercises_icon_selected);
                 bottom_bar_text_exercises.setTextColor(Color.parseColor("#0097F7"));
-                title_bar.setVisibility(View.GONE);
-                tv_main_title.setText("博学谷习题");
+                //title_bar.setVisibility(View.GONE);
+                //tv_main_title.setText("博学谷习题");
 
                 bottom_bar_text_course.setTextColor(Color.parseColor("#666666"));
                 bottom_bar_text_myinfo.setTextColor(Color.parseColor("#666666"));
                 bottom_bar_image_course.setImageResource(R.drawable.main_course_icon);
                 bottom_bar_image_myinfo.setImageResource(R.drawable.main_my_icon);
+                //getSupportFragmentManager().beginTransaction().replace(R.id.main_body_test,new MainViewExercisesFragment()).commit();
                 break;
             case 2:
-                //mMyInfoBtn.setSelected(true);
 
                 bottom_bar_image_myinfo.setImageResource(R.drawable.main_my_icon_selected);
                 bottom_bar_text_myinfo.setTextColor(Color.parseColor("#0097F7"));
-                title_bar.setVisibility(View.GONE);
+                //title_bar.setVisibility(View.GONE);
 
                 bottom_bar_text_course.setTextColor(Color.parseColor("#666666"));
                 bottom_bar_text_exercises.setTextColor(Color.parseColor("#666666"));
                 bottom_bar_image_exercises.setImageResource(R.drawable.main_exercises_icon);
                 bottom_bar_image_course.setImageResource(R.drawable.main_course_icon);
+                //getSupportFragmentManager().beginTransaction().replace(R.id.main_body_test,new MainViewMyinfoFragment()).commit();
                 break;
         }
     }
 
     private void initView() {
-        tv_back = (TextView) findViewById(R.id.tv_back);
+        /*tv_back = (TextView) findViewById(R.id.tv_back);
         tv_main_title = (TextView) findViewById(R.id.tv_main_title);
         tv_main_title.setText("博学谷课程");
         tv_back.setVisibility(View.GONE);
-
         tv_save = (TextView) findViewById(R.id.tv_save);
         title_bar = (RelativeLayout) findViewById(R.id.title_bar);
-        title_bar.setBackgroundColor(Color.parseColor("#30B4FF"));
+        title_bar.setBackgroundColor(Color.parseColor("#30B4FF"));*/
         main_body=findViewById(R.id.main_body_test);
         bottom_bar_text_course = (TextView) findViewById(R.id.bottom_bar_text_course);
         bottom_bar_image_course = (ImageView) findViewById(R.id.bottom_bar_image_course);

@@ -10,7 +10,7 @@
         android:orientation="vertical"
         android:background="@android:color/white"
         >
-        <include layout="@layout/main_title_bar"></include>
+        <!--<include layout="@layout/main_title_bar"></include>-->
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"

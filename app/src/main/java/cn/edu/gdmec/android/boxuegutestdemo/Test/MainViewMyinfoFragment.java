@@ -60,6 +60,7 @@ public class MainViewMyinfoFragment extends Fragment  {
                 }else {
                     Intent intent=new Intent(getActivity(), LoginActivity.class);
                     getActivity().startActivityForResult(intent,1);
+                    //有BUG已调通
                 }
             }
         });
