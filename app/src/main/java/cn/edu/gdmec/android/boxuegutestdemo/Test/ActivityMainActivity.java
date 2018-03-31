@@ -46,7 +46,7 @@ public class ActivityMainActivity extends FragmentActivity implements View.OnCli
 
     private void setHome() {
         this.getSupportFragmentManager().beginTransaction().add(R.id.main_body_test,new MainViewCourseFragment()).commit();
-        setSelectStatus(0);
+        setSelectStatus(2);
     }
     private void setSelectStatus(int index){
         switch (index){
@@ -161,7 +161,7 @@ public class ActivityMainActivity extends FragmentActivity implements View.OnCli
         if (data!=null){
             boolean isLogin=data.getBooleanExtra("isLogin",false);
             if (isLogin) {
-                setSelectStatus(0);
+                setSelectStatus(2);
             }
             else {
                 setSelectStatus(2);
