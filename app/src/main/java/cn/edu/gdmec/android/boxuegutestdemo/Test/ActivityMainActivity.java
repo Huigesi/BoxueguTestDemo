@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import cn.edu.gdmec.android.boxuegutestdemo.R;
+import cn.edu.gdmec.android.boxuegutestdemo.Utils.AnalysisUtils;
 
 public class ActivityMainActivity extends FragmentActivity implements View.OnClickListener{
 
@@ -59,7 +60,7 @@ public class ActivityMainActivity extends FragmentActivity implements View.OnCli
                 bottom_bar_text_myinfo.setTextColor(Color.parseColor("#666666"));
                 bottom_bar_image_exercises.setImageResource(R.drawable.main_exercises_icon);
                 bottom_bar_image_myinfo.setImageResource(R.drawable.main_my_icon);
-                //getSupportFragmentManager().beginTransaction().replace(R.id.main_body_test,new MainViewCourseFragment()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.main_body_test,new MainViewCourseFragment()).commit();
                 break;
             case 1:
                 bottom_bar_image_exercises.setImageResource(R.drawable.main_exercises_icon_selected);
@@ -71,7 +72,7 @@ public class ActivityMainActivity extends FragmentActivity implements View.OnCli
                 bottom_bar_text_myinfo.setTextColor(Color.parseColor("#666666"));
                 bottom_bar_image_course.setImageResource(R.drawable.main_course_icon);
                 bottom_bar_image_myinfo.setImageResource(R.drawable.main_my_icon);
-                //getSupportFragmentManager().beginTransaction().replace(R.id.main_body_test,new MainViewExercisesFragment()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.main_body_test,new MainViewExercisesFragment()).commit();
                 break;
             case 2:
 
@@ -83,7 +84,7 @@ public class ActivityMainActivity extends FragmentActivity implements View.OnCli
                 bottom_bar_text_exercises.setTextColor(Color.parseColor("#666666"));
                 bottom_bar_image_exercises.setImageResource(R.drawable.main_exercises_icon);
                 bottom_bar_image_course.setImageResource(R.drawable.main_course_icon);
-                //getSupportFragmentManager().beginTransaction().replace(R.id.main_body_test,new MainViewMyinfoFragment()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.main_body_test,new MainViewMyinfoFragment()).commit();
                 break;
         }
     }
@@ -142,8 +143,8 @@ public class ActivityMainActivity extends FragmentActivity implements View.OnCli
                 exitTime=System.currentTimeMillis();
             }else {
                 this.finish();
-                if (readLoginStatus()){
-                    clearLoginStatus();
+                if (AnalysisUtils.readLoginStatus(this)){
+                    AnalysisUtils.clearLoginStatus(this);
                 }
                 System.exit(0);
             }
@@ -151,31 +152,21 @@ public class ActivityMainActivity extends FragmentActivity implements View.OnCli
         }
         return super.onKeyDown(keyCode,event);
     }
-    private void clearLoginStatus() {
-        SharedPreferences sp=getSharedPreferences("loginInfo", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor=sp.edit();
-        editor.putBoolean("isLogin",false);
-        editor.putString("loginUserName","");
-        editor.commit();
 
-    }
 
-    private boolean readLoginStatus() {
-        SharedPreferences sharedPreferences=getSharedPreferences("loginInfo", Context.MODE_PRIVATE);
-        boolean isLogin=sharedPreferences.getBoolean("isLogin",false);
-        return isLogin;
-    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (data!=null){
             boolean isLogin=data.getBooleanExtra("isLogin",false);
-            if (isLogin){
+            if (isLogin) {
                 setSelectStatus(0);
             }
-            /*if (myInfoView!=null){
-                myInfoView.setLoginParams(isLogin);
-            }*/
+            else {
+                setSelectStatus(2);
+            }
+
         }
     }
 }

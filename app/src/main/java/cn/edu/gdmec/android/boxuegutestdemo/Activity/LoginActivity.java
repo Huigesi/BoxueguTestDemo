@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import cn.edu.gdmec.android.boxuegutestdemo.R;
+import cn.edu.gdmec.android.boxuegutestdemo.Test.FindPswActivity_test;
 import cn.edu.gdmec.android.boxuegutestdemo.Utils.MD5Utils;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
@@ -66,7 +67,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         tv_find_psw.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(LoginActivity.this,FindPswActivity.class);
+                Intent intent=new Intent(LoginActivity.this,FindPswActivity_test.class);
                 startActivity(intent);
             }
         });

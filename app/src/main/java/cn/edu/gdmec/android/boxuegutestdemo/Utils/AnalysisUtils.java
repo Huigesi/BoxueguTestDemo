@@ -24,6 +24,21 @@ public class AnalysisUtils {
         String userName=sharedPreferences.getString("loginUserName","");
         return userName;
     }
+    //---------------------添加内容
+    public static boolean readLoginStatus(Context context) {
+        SharedPreferences sharedPreferences=context.getSharedPreferences("loginInfo", Context.MODE_PRIVATE);
+        boolean isLogin=sharedPreferences.getBoolean("isLogin",false);
+        return isLogin;
+    }
+    public static void clearLoginStatus(Context context) {
+        SharedPreferences sp=context.getSharedPreferences("loginInfo", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor=sp.edit();
+        editor.putBoolean("isLogin",false);
+        editor.putString("loginUserName","");
+        editor.commit();
+
+    }
+    //-------------------
     public static List<ExercisesBean> getExercisesInfos(InputStream is) throws Exception{
         XmlPullParser parser= Xml.newPullParser();
         parser.setInput(is,"utf-8");
