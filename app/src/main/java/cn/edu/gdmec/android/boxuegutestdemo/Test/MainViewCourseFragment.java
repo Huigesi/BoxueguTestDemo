@@ -58,7 +58,7 @@ public class MainViewCourseFragment extends Fragment {
                             adPager.setCurrentItem(0);
                         }else {
                             adPager.setCurrentItem(adPager.getCurrentItem() + 1);
-                            Log.i("s",""+adPager.getCurrentItem());
+
                         }
                     }
                     break;
@@ -106,7 +106,6 @@ public class MainViewCourseFragment extends Fragment {
         try {
             InputStream is = getActivity().getResources().getAssets().open("chaptertitle.xml");
             cbl= AnalysisUtils.getCourseInfos(is);
-            Log.i("cbl",cbl.size()+"");
         } catch (IOException e) {
             e.printStackTrace();
         } catch (Exception e) {

@@ -31,6 +31,11 @@ public class ExercisesAdapter extends BaseAdapter {
         notifyDataSetChanged();
     }
 
+    public void updateView(List<ExercisesBean> objects){
+        this.objects=objects;
+        this.notifyDataSetChanged();
+    }
+
     @Override
     public int getCount() {
         return objects==null?0:objects.size();//??????

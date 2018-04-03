@@ -62,7 +62,7 @@ public class CourseView {
         try {
             InputStream is = mContext.getResources().getAssets().open("chaptertitle.xml");
             cbl= AnalysisUtils.getCourseInfos(is);
-            Log.i("cbl",cbl.size()+"");
+
         } catch (IOException e) {
             e.printStackTrace();
         } catch (Exception e) {
@@ -107,7 +107,7 @@ public class CourseView {
         lv_list = (ListView) mCurrentView.findViewById(R.id.lv_list);
         adapter = new CourseAdapter(mContext);
         adapter.setData(cbl);
-        Log.i("cbl",cadl.size()+"");
+
         lv_list.setAdapter(adapter);
         adPager = (ViewPager) mCurrentView.findViewById(R.id.vp_advertBanner);
         adPager.setLongClickable(false);

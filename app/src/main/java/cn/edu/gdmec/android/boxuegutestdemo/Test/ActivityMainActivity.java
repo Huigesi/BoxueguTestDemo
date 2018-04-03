@@ -119,17 +119,17 @@ public class ActivityMainActivity extends FragmentActivity implements View.OnCli
         switch (v.getId()){
             case R.id.bottom_bar_course_btn:
                 getSupportFragmentManager().beginTransaction().replace(R.id.main_body_test,new MainViewCourseFragment()).commit();
-                Log.i("a","aaa");
+
                 setSelectStatus(0);
                 break;
             case R.id.bottom_bar_exercises_btn:
                 getSupportFragmentManager().beginTransaction().replace(R.id.main_body_test,new MainViewExercisesFragment()).commit();
-                Log.i("a","aaa");
+
                 setSelectStatus(1);
                 break;
             case R.id.bottom_bar_myinfo_btn:
                 getSupportFragmentManager().beginTransaction().replace(R.id.main_body_test,new MainViewMyinfoFragment()).commit();
-                Log.i("a","aaa");
+
                 setSelectStatus(2);
                 break;
         }
