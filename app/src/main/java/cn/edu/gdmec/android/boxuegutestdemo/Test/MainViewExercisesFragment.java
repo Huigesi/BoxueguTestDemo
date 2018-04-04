@@ -201,12 +201,8 @@ public class MainViewExercisesFragment extends Fragment implements AbsListView.O
      */
     public void onLoad()
     {
-        try {
-            //模拟耗时操作
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+
+
         if(adapter == null)
         {
             adapter=new ExercisesAdapter(getActivity());
