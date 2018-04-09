@@ -52,6 +52,7 @@ public class ChangeUserInfoActivity extends AppCompatActivity {
         title_bar.setBackgroundColor(Color.parseColor("#30B4FF"));
         iv_delete = (ImageView) findViewById(R.id.iv_delete);
         tv_save = (TextView) findViewById(R.id.tv_save);
+
         tv_save.setVisibility(View.VISIBLE);
         if (!TextUtils.isEmpty(content)) {
             et_content.setText(content);
