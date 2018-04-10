@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -18,7 +19,7 @@ import cn.edu.gdmec.android.boxuegutestdemo.R;
 import cn.edu.gdmec.android.boxuegutestdemo.Utils.AnalysisUtils;
 import cn.edu.gdmec.android.boxuegutestdemo.Utils.DBUtils;
 
-public class UserInfoActivity extends Activity implements View.OnClickListener{
+public class UserInfoActivity extends Activity implements View.OnClickListener {
 
     private TextView tv_back;
     private TextView tv_main_title;
@@ -34,29 +35,34 @@ public class UserInfoActivity extends Activity implements View.OnClickListener{
     private RelativeLayout rl_sex;
     private RelativeLayout rl_signature;
     private String spUserName;
-    private static final int CHANGE_NICKNAME=1;
-    private static final int CHANGE_SIGNATURE=2;
+    private static final int CHANGE_NICKNAME = 1;
+    private static final int CHANGE_SIGNATURE = 2;
+    private static final int CHANGE_QQ = 3;
+
+    private TextView tv_QQ;
+    private RelativeLayout rl_QQ;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_info);
-        spUserName= AnalysisUtils.readLoginUserName(this);
+        spUserName = AnalysisUtils.readLoginUserName(this);
         initView();
         initData();
     }
 
 
     private void initData() {
-        UserBean bean=null;
-        bean= DBUtils.getInstance(this).getUserInfo(spUserName);
-        if (bean==null){
-            bean=new UserBean();
-            bean.userName=spUserName;
-            bean.nickName="问答精灵";
-            bean.sex="男";
-            bean.signature="问答精灵";
+        UserBean bean = null;
+        bean = DBUtils.getInstance(this).getUserInfo(spUserName);
+        if (bean == null) {
+            bean = new UserBean();
+            bean.userName = spUserName;
+            bean.nickName = "问答精灵";
+            bean.sex = "男";
+            bean.signature = "问答精灵";
+            bean.QQ="未添加";
             DBUtils.getInstance(this).saveUserInfo(bean);
         }
         satValue(bean);
@@ -67,6 +73,7 @@ public class UserInfoActivity extends Activity implements View.OnClickListener{
         tv_nickName.setText(bean.nickName);
         tv_sex.setText(bean.sex);
         tv_signature.setText(bean.signature);
+        tv_QQ.setText(bean.QQ);
     }
 
     private void initView() {
@@ -91,55 +98,68 @@ public class UserInfoActivity extends Activity implements View.OnClickListener{
         rl_sex.setOnClickListener(this);
         rl_signature = (RelativeLayout) findViewById(R.id.rl_signature);
         rl_signature.setOnClickListener(this);
+        tv_QQ = (TextView) findViewById(R.id.tv_QQ);
+        tv_QQ.setOnClickListener(this);
+        rl_QQ = (RelativeLayout) findViewById(R.id.rl_QQ);
+        rl_QQ.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.tv_back:
                 this.finish();
                 break;
             case R.id.rl_nickName:
                 //昵称
-                String name=tv_nickName.getText().toString();
-                Bundle bdName=new Bundle();
-                bdName.putString("content",name);
-                bdName.putString("title","昵称");
+                String name = tv_nickName.getText().toString();
+                Bundle bdName = new Bundle();
+                bdName.putString("content", name);
+                bdName.putString("title", "昵称");
                 bdName.putInt("flag", 1);
-                enterActivityForResult(ChangeUserInfoActivity.class,CHANGE_NICKNAME,bdName);
+                enterActivityForResult(ChangeUserInfoActivity.class, CHANGE_NICKNAME, bdName);
                 break;
             case R.id.rl_sex:
-                String sex=tv_sex.getText().toString();
+                String sex = tv_sex.getText().toString();
                 sexDiolag(sex);
 
                 break;
             case R.id.rl_signature:
                 //signature
-                String signature=tv_signature.getText().toString();
-                Bundle bdSignature=new Bundle();
-                bdSignature.putString("content",signature);
-                bdSignature.putString("title","签名");
+                String signature = tv_signature.getText().toString();
+                Bundle bdSignature = new Bundle();
+                bdSignature.putString("content", signature);
+                bdSignature.putString("title", "签名");
                 bdSignature.putInt("flag", 2);
-                enterActivityForResult(ChangeUserInfoActivity.class,CHANGE_SIGNATURE,bdSignature);
+                enterActivityForResult(ChangeUserInfoActivity.class, CHANGE_SIGNATURE, bdSignature);
+                break;
+            case R.id.rl_QQ:
+                //QQ号
+                String QQ = tv_QQ.getText().toString();
+                Bundle bdQQ = new Bundle();
+                bdQQ.putString("content", QQ);
+                bdQQ.putString("title", "QQ号");
+                bdQQ.putInt("flag", 3);
+                enterActivityForResult(ChangeUserInfoActivity.class, CHANGE_QQ, bdQQ);
                 break;
         }
     }
 
     private void sexDiolag(String sex) {
-        int sexFlag=0;
-        if ("男".equals(sex)){
-            sexFlag=0;
-        }else if ("女".equals(sex)){
-            sexFlag=1;
+        int sexFlag = 0;
+        if ("男".equals(sex)) {
+            sexFlag = 0;
+        } else if ("女".equals(sex)) {
+            sexFlag = 1;
         }
-        final String item[]={"男","女"};
-        AlertDialog.Builder builder=new AlertDialog.Builder(this);
+        final String item[] = {"男", "女"};
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("性别");
         builder.setSingleChoiceItems(item, sexFlag, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
-                Toast.makeText(UserInfoActivity.this,item[which],Toast.LENGTH_SHORT).show();
+                Toast.makeText(UserInfoActivity.this, item[which], Toast.LENGTH_SHORT).show();
                 setSex(item[which]);
             }
         });
@@ -149,38 +169,51 @@ public class UserInfoActivity extends Activity implements View.OnClickListener{
 
     private void setSex(String s) {
         tv_sex.setText(s);
-        DBUtils.getInstance(UserInfoActivity.this).updateUserInfo("sex",s,spUserName);
+        DBUtils.getInstance(UserInfoActivity.this).updateUserInfo("sex", s, spUserName);
     }
 
-    public void enterActivityForResult(Class<?> to,int requestcode,Bundle b){
-        Intent i=new Intent(this,to);
+    public void enterActivityForResult(Class<?> to, int requestcode, Bundle b) {
+        Intent i = new Intent(this, to);
         i.putExtras(b);
-        startActivityForResult(i,requestcode);
+        startActivityForResult(i, requestcode);
     }
+
     private String new_info;
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        switch (requestCode){
+        switch (requestCode) {
             case CHANGE_NICKNAME:
-                if (data!=null){
-                    new_info=data.getStringExtra("nickName");
-                    if (TextUtils.isEmpty(new_info)){
+                if (data != null) {
+                    new_info = data.getStringExtra("nickName");
+                    if (TextUtils.isEmpty(new_info)) {
                         return;
                     }
+                    Log.i("nickname",new_info);
                     tv_nickName.setText(new_info);
-                    DBUtils.getInstance(UserInfoActivity.this).updateUserInfo("nickName",new_info,spUserName);
+                    DBUtils.getInstance(UserInfoActivity.this).updateUserInfo("nickName", new_info, spUserName);
                 }
                 break;
             case CHANGE_SIGNATURE:
-                if (data!=null){
-                    new_info=data.getStringExtra("signature");
-                    if (TextUtils.isEmpty(new_info)){
+                if (data != null) {
+                    new_info = data.getStringExtra("signature");
+                    if (TextUtils.isEmpty(new_info)) {
                         return;
                     }
                     tv_signature.setText(new_info);
-                    DBUtils.getInstance(UserInfoActivity.this).updateUserInfo("signature",new_info,spUserName);
+                    DBUtils.getInstance(UserInfoActivity.this).updateUserInfo("signature", new_info, spUserName);
+                }
+                break;
+            case CHANGE_QQ:
+                if (data != null) {
+                    new_info = data.getStringExtra("QQ");
+                    if (TextUtils.isEmpty(new_info)) {
+                        return;
+                    }
+                    tv_QQ.setText(new_info);
+                    Log.i("dsa","QQ"+new_info);
+                    DBUtils.getInstance(UserInfoActivity.this).updateUserInfo("QQ", new_info, spUserName);
                 }
                 break;
         }

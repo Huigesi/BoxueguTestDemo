@@ -39,6 +39,7 @@ public class DBUtils {
         contentValues.put("nickName", bean.nickName);
         contentValues.put("sex", bean.sex);
         contentValues.put("signature", bean.signature);
+        contentValues.put("QQ",bean.QQ);
         db.insert(SQLiteHelper.U_USERINFO, null, contentValues);
     }
 
@@ -52,7 +53,7 @@ public class DBUtils {
             userBean.nickName = cursor.getString(cursor.getColumnIndex("nickName"));
             userBean.sex = cursor.getString(cursor.getColumnIndex("sex"));
             userBean.signature = cursor.getString(cursor.getColumnIndex("signature"));
-
+            userBean.QQ=cursor.getString(cursor.getColumnIndex("QQ"));
         }
         cursor.close();
         return userBean;

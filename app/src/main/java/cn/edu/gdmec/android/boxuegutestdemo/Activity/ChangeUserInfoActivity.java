@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.Selection;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -40,10 +41,9 @@ public class ChangeUserInfoActivity extends AppCompatActivity {
     }
 
     private void initView() {
-        title = getIntent().getStringExtra("title");
         content = getIntent().getStringExtra("content");
-        Log.i("content", content);
         flag = getIntent().getIntExtra("flag", 0);
+        title=getIntent().getStringExtra("title");
         et_content = (EditText) findViewById(R.id.et_content);
         tv_back = (TextView) findViewById(R.id.tv_back);
         tv_main_title = (TextView) findViewById(R.id.tv_main_title);
@@ -57,6 +57,9 @@ public class ChangeUserInfoActivity extends AppCompatActivity {
         if (!TextUtils.isEmpty(content)) {
             et_content.setText(content);
             et_content.setSelection(content.length());
+        }
+        if (flag==3){
+            et_content.setInputType(InputType.TYPE_CLASS_NUMBER);
         }
         contentListener();
 
@@ -98,6 +101,17 @@ public class ChangeUserInfoActivity extends AppCompatActivity {
                         } else {
                             Toast.makeText(ChangeUserInfoActivity.this, "签名不能为空", Toast.LENGTH_SHORT).show();
                         }
+                        break;
+                    case 3:
+                        if (!TextUtils.isEmpty(etContent)) {
+                            data.putExtra("QQ", etContent);
+                            setResult(RESULT_OK, data);
+                            Toast.makeText(ChangeUserInfoActivity.this, "保存成功", Toast.LENGTH_SHORT).show();
+                            ChangeUserInfoActivity.this.finish();
+                        } else {
+                            Toast.makeText(ChangeUserInfoActivity.this, "QQ号不能为空", Toast.LENGTH_SHORT).show();
+                        }
+                        break;
                 }
             }
         });
@@ -107,6 +121,7 @@ public class ChangeUserInfoActivity extends AppCompatActivity {
         et_content.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
 
             }
 
@@ -121,6 +136,7 @@ public class ChangeUserInfoActivity extends AppCompatActivity {
                 }
                 switch (flag) {
                     case 1:
+
                         if (len > 8) {
                             int selEndIndex = Selection.getSelectionEnd(editable);
                             String str = editable.toString();
@@ -151,6 +167,25 @@ public class ChangeUserInfoActivity extends AppCompatActivity {
                             }
                             Selection.setSelection(editable, selEndIndex);
                         }
+                        break;
+                    case 3:
+
+                        if (len > 12) {
+                            int selEndIndex = Selection.getSelectionEnd(editable);
+                            String str = editable.toString();
+
+                            String newStr = str.substring(0, 12);
+                            et_content.setText(newStr);
+                            editable = et_content.getText();
+
+                            int newLen = editable.length();
+
+                            if (selEndIndex > newLen) {
+                                selEndIndex = editable.length();
+                            }
+                            Selection.setSelection(editable, selEndIndex);
+                        }
+
                         break;
                     default:
                         break;
