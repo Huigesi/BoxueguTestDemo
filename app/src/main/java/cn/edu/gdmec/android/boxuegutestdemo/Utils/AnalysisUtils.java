@@ -38,7 +38,21 @@ public class AnalysisUtils {
         editor.commit();
 
     }
+    public static boolean readExercisesStatus(Context context,int i){
+        SharedPreferences sharedPreferences=context.getSharedPreferences("exercises", Context.MODE_PRIVATE);
+        boolean isDone=sharedPreferences.getBoolean("isDone"+i,false);
+        return isDone;
+    }
+    public static void saveExercisesStatus(Context context,int i){
+        SharedPreferences sharedPreferences=context.getSharedPreferences("exercises", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor= sharedPreferences.edit();
+        editor.putBoolean("isDone"+i,true);
+        editor.commit();
+    }
+
     //-------------------
+
+
     public static List<ExercisesBean> getExercisesInfos(InputStream is) throws Exception{
         XmlPullParser parser= Xml.newPullParser();
         parser.setInput(is,"utf-8");

@@ -166,7 +166,9 @@ public class ActivityMainActivity extends FragmentActivity implements View.OnCli
             else {
                 setSelectStatus(2);
             }
-
+        }
+        if (requestCode==000){
+            setSelectStatus(1);
         }
     }
 }

@@ -3,8 +3,10 @@ package cn.edu.gdmec.android.boxuegutestdemo.adapter;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +16,8 @@ import android.widget.TextView;
 import cn.edu.gdmec.android.boxuegutestdemo.Activity.ExercisesDetailActivity;
 import cn.edu.gdmec.android.boxuegutestdemo.Bean.ExercisesBean;
 import cn.edu.gdmec.android.boxuegutestdemo.R;
+import cn.edu.gdmec.android.boxuegutestdemo.Test.ExercisesDetailActivity_test;
+import cn.edu.gdmec.android.boxuegutestdemo.Utils.AnalysisUtils;
 
 public class ExercisesAdapter extends BaseAdapter {
 
@@ -66,7 +70,14 @@ public class ExercisesAdapter extends BaseAdapter {
             final ExercisesBean bean=getItem(position);
         if (bean!=null){
             holder.tvOrder.setText(position+1+"");
-            holder.tvContent.setText(bean.content);
+            Log.i("Es",AnalysisUtils.readExercisesStatus(context,position)+" "+(position+1));
+            if (AnalysisUtils.readExercisesStatus(context,position+1)){
+
+                holder.tvContent.setText("已完成");
+            }else {
+                holder.tvContent.setText(bean.content);
+            }
+
             holder.tvTitle.setText(bean.title);
             holder.tvOrder.setBackgroundResource(bean.background);
             convertView.setOnClickListener(new View.OnClickListener() {
@@ -75,10 +86,11 @@ public class ExercisesAdapter extends BaseAdapter {
                     if (bean==null){
                         return;
                     }
-                    Intent intent=new Intent(context, ExercisesDetailActivity.class);
+                    Intent intent=new Intent(context, ExercisesDetailActivity_test.class);
                     intent.putExtra("id",bean.id);
                     intent.putExtra("title",bean.title);
-                    context.startActivity(intent);
+
+                    ((Activity)context).startActivityForResult(intent,000);
 
                 }
             });

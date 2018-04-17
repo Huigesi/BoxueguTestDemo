@@ -19,6 +19,7 @@
         <activity android:name=".Activity.UserInfoActivity" />
         <activity android:name=".Activity.ChangeUserInfoActivity" />
         <activity android:name=".Activity.ExercisesDetailActivity" />
+        <activity android:name=".Test.ExercisesDetailActivity_test"/>
         <activity android:name=".Activity.VideoListActivity" />
         <activity android:name=".Test.ActivityMainActivity">
             <intent-filter>
