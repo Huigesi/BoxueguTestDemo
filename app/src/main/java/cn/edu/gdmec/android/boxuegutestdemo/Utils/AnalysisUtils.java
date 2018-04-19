@@ -108,20 +108,18 @@ public class AnalysisUtils {
         iv_d.setEnabled(value);
     }
 
-    public static List<List<CourseBean>> getCourseInfos(InputStream is) throws Exception{
+    public static List<CourseBean> getCourseInfos(InputStream is) throws Exception{
         XmlPullParser parser=Xml.newPullParser();
         parser.setInput(is,"utf-8");
-        List<List<CourseBean>> courseInfos=null;
+        //List<List<CourseBean>> courseInfos=null;
         List<CourseBean> courseList=null;
         CourseBean courseInfo = null;
 
-        int count=0;
         int type=parser.getEventType();
         while (type!=XmlPullParser.END_DOCUMENT){
             switch (type){
                 case XmlPullParser.START_TAG:
                     if ("infos".equals(parser.getName())) {
-                        courseInfos = new ArrayList<List<CourseBean>>();
                         courseList = new ArrayList<CourseBean>();
                     } else if ("course".equals(parser.getName())) {
                         courseInfo=new CourseBean();
@@ -140,13 +138,7 @@ public class AnalysisUtils {
                     break;
                 case XmlPullParser.END_TAG:
                     if ("course".equals(parser.getName())) {
-                        count++;
                         courseList.add(courseInfo);
-                        if (count%2==0){
-                            courseInfos.add(courseList);
-                            courseList=null;
-                            courseList = new ArrayList<CourseBean>();
-                        }
                         courseInfo=null;
                     }
                     break;
@@ -154,6 +146,6 @@ public class AnalysisUtils {
             type=parser.next();
         }
 
-        return courseInfos;
+        return courseList;
     }
 }

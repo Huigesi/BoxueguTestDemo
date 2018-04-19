@@ -6,6 +6,8 @@ import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
@@ -33,9 +35,9 @@ import cn.edu.gdmec.android.boxuegutestdemo.adapter.CourseAdapter;
 public class MainViewCourseFragment extends Fragment {
 
     public static final int MSG_AD_SLID = 002;
-    private ListView lv_list;
-    private List<List<CourseBean>> cbl;
-    private CourseAdapter adapter;
+    //private List<List<CourseBean>> cbl;
+    //private CourseAdapter adapter;
+    private CourseListItemTestAdapter adapter;
     private ViewPager adPager;
     private AdBannerAdapter ada;
     private RelativeLayout adBannerLay;
@@ -58,13 +60,13 @@ public class MainViewCourseFragment extends Fragment {
                             adPager.setCurrentItem(0);
                         }else {
                             adPager.setCurrentItem(adPager.getCurrentItem() + 1);
-
                         }
                     }
                     break;
             }
         }
     };
+    private RecyclerView rv_list;
 
 
     @Override
@@ -105,7 +107,8 @@ public class MainViewCourseFragment extends Fragment {
     private void getCourseData() {
         try {
             InputStream is = getActivity().getResources().getAssets().open("chaptertitle.xml");
-            cbl= AnalysisUtils.getCourseInfos(is);
+            cadl= AnalysisUtils.getCourseInfos(is);
+            Log.i("cad1",cadl.size()+"");
         } catch (IOException e) {
             e.printStackTrace();
         } catch (Exception e) {
@@ -116,10 +119,12 @@ public class MainViewCourseFragment extends Fragment {
 
 
     private void intiView(View view) {
-        lv_list = (ListView) view.findViewById(R.id.lv_list);
-        adapter = new CourseAdapter(getActivity());
-        adapter.setData(cbl);
-        lv_list.setAdapter(adapter);
+        rv_list=view.findViewById(R.id.rv_list);
+        adapter=new CourseListItemTestAdapter(getActivity());
+        adapter.setData(cadl);
+        //Log.i("cad1",cadl.size()+"");
+        rv_list.setLayoutManager(new GridLayoutManager(getActivity(),2));
+        rv_list.setAdapter(adapter);
         adPager = view.findViewById(R.id.vp_advertBanner);
         adBannerLay = view.findViewById(R.id.rl_adBanner);
         viewList = new ArrayList<>();

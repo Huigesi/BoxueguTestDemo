@@ -30,13 +30,11 @@
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:background="#E4E4E4"/>
-    <ListView
+    <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/lv_list"
+        android:id="@+id/rv_list"
         android:layout_marginBottom="55dp"
-        android:divider="@null"
-        android:dividerHeight="0dp"
-        android:scrollbars="none"></ListView>
+        android:scrollbars="none"></android.support.v7.widget.RecyclerView>
 
 </LinearLayout>
