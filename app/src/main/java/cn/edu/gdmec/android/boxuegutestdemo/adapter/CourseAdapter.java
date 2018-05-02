@@ -123,7 +123,6 @@ public class CourseAdapter extends BaseAdapter{
                 iv_right_img.setImageResource(R.drawable.chapter_10_icon);
                 break;
         }
-
     }
 
     private void setLeftImg(int id, ImageView iv_left_img) {

@@ -44,10 +44,10 @@ public class MainViewExercisesFragment extends Fragment  {
         initData();
         mInflater = LayoutInflater.from(getActivity());
         view1=mInflater.inflate(R.layout.load_more,null);
-
         view1.setVisibility(View.VISIBLE);
         adapter.setData(ebl);
         lvList.setAdapter(adapter);
+
     }
     private void initData() {
         ebl =new ArrayList<ExercisesBean>();

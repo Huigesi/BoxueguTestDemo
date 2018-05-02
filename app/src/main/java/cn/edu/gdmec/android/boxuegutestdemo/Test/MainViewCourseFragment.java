@@ -108,7 +108,6 @@ public class MainViewCourseFragment extends Fragment {
         try {
             InputStream is = getActivity().getResources().getAssets().open("chaptertitle.xml");
             cadl= AnalysisUtils.getCourseInfos(is);
-            Log.i("cad1",cadl.size()+"");
         } catch (IOException e) {
             e.printStackTrace();
         } catch (Exception e) {

@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -49,10 +50,10 @@ public class VideoListActivity extends AppCompatActivity implements View.OnClick
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video_list);
-        chapterId=getIntent().getIntExtra("id",0);
+        chapterId = getIntent().getIntExtra("id", 0);
         intro = getIntent().getStringExtra("intro");
-        db=DBUtils.getInstance(VideoListActivity.this);
-        initData();
+        db = DBUtils.getInstance(VideoListActivity.this);
+        initData2();
         initView();
     }
 
@@ -60,11 +61,13 @@ public class VideoListActivity extends AppCompatActivity implements View.OnClick
         JSONArray jsonArray;
         try {
             InputStream is = getResources().getAssets().open("data.json");
-            jsonArray=new JSONArray(read(is));
+            jsonArray = new JSONArray(read(is));
+            Log.i("jsonArray1",jsonArray.toString());
             videoList = new ArrayList<VideoBean>();
-            for (int i=0;i<jsonArray.length();i++){
-                VideoBean bean=new VideoBean();
-                JSONObject jsonObj=jsonArray.getJSONObject(i);
+            for (int i = 0; i < jsonArray.length(); i++) {
+                VideoBean bean = new VideoBean();
+                JSONObject jsonObj = jsonArray.getJSONObject(i);
+                //Log.i("jsonObj",jsonObj.toString());
                 if (jsonObj.getInt("chapterId") == chapterId) {
                     bean.chapterId = jsonObj.getInt("chapterId");
                     bean.videoId = Integer.parseInt(jsonObj.getString("videoId"));
@@ -73,7 +76,39 @@ public class VideoListActivity extends AppCompatActivity implements View.OnClick
                     bean.videoPath = jsonObj.getString("videoPath");
                     videoList.add(bean);
                 }
-                bean=null;
+                bean = null;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+    }
+    private void initData2() {
+        JSONArray jsonArray;
+        try {
+            InputStream is = getResources().getAssets().open("data.json");
+            jsonArray = new JSONArray(read(is));
+            videoList = new ArrayList<VideoBean>();
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonObj = jsonArray.getJSONObject(i);
+                Log.i("jsonObj",jsonObj.toString());
+                if (jsonObj.getInt("chapterId") == chapterId) {
+                    JSONArray jsonArray1=jsonObj.getJSONArray("data");
+                    for (int j=0;j<jsonArray1.length();j++){
+                        VideoBean bean = new VideoBean();
+                        bean.chapterId = jsonObj.getInt("chapterId");
+                        JSONObject jsonObject=jsonArray1.getJSONObject(j);
+                        Log.i("jsonObject",jsonObject.toString());
+                        bean.videoId = Integer.parseInt(jsonObject.getString("videoId"));
+                        bean.title = jsonObject.getString("title");
+                        bean.secondTitle = jsonObject.getString("secondTitle");
+                        bean.videoPath = jsonObject.getString("videoPath");
+                        videoList.add(bean);
+                        bean = null;
+                    }
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -84,12 +119,12 @@ public class VideoListActivity extends AppCompatActivity implements View.OnClick
     }
 
     private String read(InputStream is) {
-        BufferedReader reader=null;
-        StringBuilder sb=null;
-        String line=null;
+        BufferedReader reader = null;
+        StringBuilder sb = null;
+        String line = null;
         try {
-        sb = new StringBuilder();
-        reader = new BufferedReader(new InputStreamReader(is));
+            sb = new StringBuilder();
+            reader = new BufferedReader(new InputStreamReader(is));
 
             while ((line = reader.readLine()) != null) {
                 sb.append(line);
@@ -98,7 +133,7 @@ public class VideoListActivity extends AppCompatActivity implements View.OnClick
         } catch (IOException e) {
             e.printStackTrace();
             return "";
-        }finally {
+        } finally {
             if (is != null) {
                 try {
                     is.close();
@@ -119,49 +154,42 @@ public class VideoListActivity extends AppCompatActivity implements View.OnClick
         lv_video_list = (ListView) findViewById(R.id.lv_video_list);
         tv_chapter_intro = (TextView) findViewById(R.id.tv_chapter_intro);
         sv_chapter_intro = (ScrollView) findViewById(R.id.sv_chapter_intro);
-        adapter=new VideoListAdapter(this, new VideoListAdapter.OnSelectListener() {
-            @Override
-            public void onSelect(int position, ImageView iv) {
-                adapter.setSelectedPosition(position);
-                VideoBean bean=videoList.get(position);
-                String videoPath=bean.videoPath;
-                adapter.notifyDataSetChanged();
-                if (TextUtils.isEmpty(videoPath)){
-                    Toast.makeText(VideoListActivity.this, "本地没有此视频，暂无法播放", Toast.LENGTH_SHORT).show();
-                    return;
-                }else {
-                    if (readLoginStatus()){
-                        String userName = AnalysisUtils.readLoginUserName(VideoListActivity.this);
-                        db.saveVideoPlayList(videoList.get(position), userName);
-                    }
-                    //视频播放
-                    Intent intent=new Intent(VideoListActivity.this, VideoPlayActivity.class);
-                    intent.putExtra("videoPath", videoPath);
-                    intent.putExtra("position", position);
-                    startActivityForResult(intent,1);
-                }
-            }
-        });
+        adapter = new VideoListAdapter(this);
+//                adapter.setSelectedPosition(position);
+//                VideoBean bean = videoList.get(position);
+//                String videoPath = bean.videoPath;
+//                adapter.notifyDataSetChanged();
+//                if (TextUtils.isEmpty(videoPath)) {
+//                    Toast.makeText(VideoListActivity.this, "本地没有此视频，暂无法播放", Toast.LENGTH_SHORT).show();
+//                    return;
+//                } else {
+//                    if (readLoginStatus()) {
+//                        String userName = AnalysisUtils.readLoginUserName(VideoListActivity.this);
+//                        db.saveVideoPlayList(videoList.get(position), userName);
+//                    }
+//                    //视频播放
+//                    Intent intent = new Intent(VideoListActivity.this, VideoPlayActivity.class);
+//                    intent.putExtra("videoPath", videoPath);
+//                    intent.putExtra("position", position);
+//                    startActivityForResult(intent, 1);
+
         lv_video_list.setAdapter(adapter);
         tv_intro.setOnClickListener(this);
         tv_video.setOnClickListener(this);
+        Log.i("videoList", videoList.size()+"");
         adapter.setData(videoList);
         tv_chapter_intro.setText(intro);
         tv_intro.setBackgroundColor(Color.parseColor("#30B4FF"));
         tv_video.setBackgroundColor(Color.parseColor("#FFFFFF"));
-       tv_intro.setTextColor(Color.parseColor("#FFFFFF"));
-       tv_video.setTextColor(Color.parseColor("#000000"));
+        tv_intro.setTextColor(Color.parseColor("#FFFFFF"));
+        tv_video.setTextColor(Color.parseColor("#000000"));
     }
 
-    private boolean readLoginStatus() {
-        SharedPreferences sp = getSharedPreferences("loginInfo", Context.MODE_PRIVATE);
-        boolean isLogin = sp.getBoolean("isLogin", false);
-        return isLogin;
-    }
+
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.tv_intro:
                 lv_video_list.setVisibility(View.GONE);
                 sv_chapter_intro.setVisibility(View.VISIBLE);
@@ -170,14 +198,14 @@ public class VideoListActivity extends AppCompatActivity implements View.OnClick
                 tv_intro.setTextColor(Color.parseColor("#FFFFFF"));
                 tv_video.setTextColor(Color.parseColor("#000000"));
                 break;
-                case R.id.tv_video:
-                    lv_video_list.setVisibility(View.VISIBLE);
-                    sv_chapter_intro.setVisibility(View.GONE);
-                    tv_intro.setBackgroundColor(Color.parseColor("#FFFFFF"));
-                    tv_video.setBackgroundColor(Color.parseColor("#30B4FF"));
-                    tv_intro.setTextColor(Color.parseColor("#000000"));
-                    tv_video.setTextColor(Color.parseColor("#FFFFFF"));
-                    break;
+            case R.id.tv_video:
+                lv_video_list.setVisibility(View.VISIBLE);
+                sv_chapter_intro.setVisibility(View.GONE);
+                tv_intro.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                tv_video.setBackgroundColor(Color.parseColor("#30B4FF"));
+                tv_intro.setTextColor(Color.parseColor("#000000"));
+                tv_video.setTextColor(Color.parseColor("#FFFFFF"));
+                break;
         }
     }
 

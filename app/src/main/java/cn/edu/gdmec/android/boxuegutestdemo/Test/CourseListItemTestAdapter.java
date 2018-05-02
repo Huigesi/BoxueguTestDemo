@@ -3,6 +3,7 @@ package cn.edu.gdmec.android.boxuegutestdemo.Test;
 import java.util.ArrayList;
 import java.util.List;
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,10 +11,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import cn.edu.gdmec.android.boxuegutestdemo.Activity.VideoListActivity;
 import cn.edu.gdmec.android.boxuegutestdemo.Bean.CourseBean;
 import cn.edu.gdmec.android.boxuegutestdemo.R;
 
-public class CourseListItemTestAdapter extends RecyclerView.Adapter<CourseListItemTestAdapter.ViewHolder> {
+public class CourseListItemTestAdapter extends
+        RecyclerView.Adapter<CourseListItemTestAdapter.ViewHolder> {
 
     private List<CourseBean> objects = new ArrayList<CourseBean>();
     private Context context;
@@ -51,7 +54,7 @@ public class CourseListItemTestAdapter extends RecyclerView.Adapter<CourseListIt
     }
 
 
-    private void initializeViews(CourseBean object, ViewHolder holder) {
+    private void initializeViews(final CourseBean object, ViewHolder holder) {
         //TODO implement
         if (object!=null){
             holder.tvCourseImgTitle.setText(object.imgTitle);
@@ -88,6 +91,15 @@ public class CourseListItemTestAdapter extends RecyclerView.Adapter<CourseListIt
                     holder.ivCourseImg.setImageResource(R.drawable.chapter_10_icon);
                     break;
             }
+            holder.ivCourseImg.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(context, VideoListActivity.class);
+                    intent.putExtra("id", object.id);
+                    intent.putExtra("intro", object.intro);
+                    context.startActivity(intent);
+                }
+            });
 
         }
 

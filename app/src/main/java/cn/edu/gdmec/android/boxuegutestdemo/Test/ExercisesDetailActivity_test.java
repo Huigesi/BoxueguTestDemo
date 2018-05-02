@@ -199,7 +199,7 @@ public class ExercisesDetailActivity_test extends Activity {
         rv_list.setSaveFromParentEnabled(true);
 
         tv_dibu = (TextView) findViewById(R.id.tv_dibu);
-        adapter.setItemListener(new ExercisesDetailAdapter_recycle.ItemListener() {
+        ExercisesDetailAdapter_recycle.ItemListener listener=new ExercisesDetailAdapter_recycle.ItemListener() {
             @Override
             public void onItemClick(View view, int position) {
                 exercises++;
@@ -211,7 +211,8 @@ public class ExercisesDetailActivity_test extends Activity {
                     setResult(RESULT_OK);
                 }
             }
-        });
+        };
+        adapter.setItemListener(listener);
         rv_list.setAdapter(adapter);
 
     }

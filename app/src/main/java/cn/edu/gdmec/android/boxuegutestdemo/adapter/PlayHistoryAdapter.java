@@ -54,17 +54,16 @@ public class PlayHistoryAdapter extends BaseAdapter {
             convertView = layoutInflater.inflate(R.layout.play_history_list_item, null);
             convertView.setTag(new ViewHolder(convertView));
         }
-        initializeViews((VideoBean) getItem(position), (ViewHolder) convertView.getTag(), position,convertView);
+        initializeViews((VideoBean) getItem(position), (ViewHolder) convertView.getTag(),convertView);
         return convertView;
     }
 
-    private void initializeViews(VideoBean object, ViewHolder holder, int position,View convertView) {
+    private void initializeViews(final VideoBean object, ViewHolder holder, View convertView) {
         //TODO implement
-        final VideoBean bean = getItem(position);
-        if (bean != null) {
-            holder.tvAdapterTitle.setText(bean.title);
-            holder.tvVideoTitle.setText(bean.secondTitle);
-            switch (bean.chapterId) {
+        if (object != null) {
+            holder.tvAdapterTitle.setText(object.title);
+            holder.tvVideoTitle.setText(object.secondTitle);
+            switch (object.chapterId) {
                 case 1:
                     holder.ivVideoIcon.setImageResource(R.drawable.video_play_icon1);
                     break;
@@ -102,11 +101,11 @@ public class PlayHistoryAdapter extends BaseAdapter {
             convertView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (bean == null) {
+                    if (object == null) {
                         return;
                     }
                     Intent intent = new Intent(context, VideoPlayActivity.class);
-                    intent.putExtra("videoPath", bean.videoPath);
+                    intent.putExtra("videoPath", object.videoPath);
                     context.startActivity(intent);
                 }
             });

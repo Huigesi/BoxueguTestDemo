@@ -2,6 +2,7 @@ package cn.edu.gdmec.android.boxuegutestdemo.Activity;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.net.Uri;
 import android.os.Bundle;
 import android.app.Activity;
 import android.support.v7.app.AppCompatActivity;
@@ -38,8 +39,9 @@ public class VideoPlayActivity extends AppCompatActivity {
             Toast.makeText(this, "本地没有此视频，暂无法播放", Toast.LENGTH_SHORT).show();
             return;
         }
-        String uri="android.resource://"+getPackageName()+"/"+R.raw.video11;
-        videoView.setVideoPath(uri);
+        //String uri="android.resource://"+getPackageName()+"/"+R.raw.video11;
+        videoView.setVideoPath(videoPath);
+        //videoView.setVideoURI(Uri.parse(videoPath));
         videoView.start();
     }
 
