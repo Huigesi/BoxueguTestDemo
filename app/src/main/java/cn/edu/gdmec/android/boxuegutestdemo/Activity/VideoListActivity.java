@@ -109,6 +109,7 @@ public class VideoListActivity extends AppCompatActivity implements View.OnClick
                         bean = null;
                     }
                 }
+
             }
         } catch (IOException e) {
             e.printStackTrace();
